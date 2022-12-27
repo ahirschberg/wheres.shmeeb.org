@@ -1,3 +1,12 @@
+let cheat_code = window.location.search.substring(1);
+let invincible = false;
+if (cheat_code == 'user=shmeeb') {
+  invincible = true;
+}
+if (cheat_code == 'user=george') {
+  window.document.body.innerHTML = '<h1>George you are the worst. Shoo! Shoo!</h1>'
+}
+
  const RAD = Math.PI/180;
  const scrn = document.getElementById('canvas');
  const sctx = scrn.getContext("2d");
@@ -48,7 +57,7 @@
 
 
  let frames = 0;
- let dx = 4;
+ let dx = 2;
  const state = {
      curr : 0,
      getReady : 0,
@@ -133,7 +142,7 @@
     x : 50,
     y :100,
     speed : 0,
-    gravity : 0.25,//.125,
+    gravity : 0.125,//.125,
     thrust : 2,
     frame:0,
     draw : function() {
@@ -161,7 +170,9 @@
                 this.speed += this.gravity;
                 if(this.y + r  >= gnd.y||this.collisioned())
                 {
+                  if (!invincible) {
                     state.curr = state.gameOver;
+                  }
                 }
 
                 break;
@@ -274,6 +285,10 @@
     drawScore : function() {
             sctx.fillStyle = "#FFFFFF";
             sctx.strokeStyle = "#000000";
+      if (invincible) {
+
+                    sctx.fillText("shmeeb mode activated",0,30);
+      }
         switch (state.curr) {
             case state.Play :
                 sctx.lineWidth = "2";
